@@ -1,0 +1,224 @@
+2025-05-28 08:21:04,575 - INFO - Succesfully read the YAML file
+2025-05-28 08:21:04,576 - INFO - Data Ingestion started with my_bucket9789 and file is  Hotel_Reservations.csv
+2025-05-28 08:21:04,576 - INFO - Starting data ingestion process
+2025-05-28 08:21:05,026 - ERROR - Error while downloading the csv file: 403 GET https://storage.googleapis.com/download/storage/v1/b/my_bucket9789/o/Hotel_Reservations.csv?alt=media: The billing account for the owning project is disabled in state closed: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
+Traceback (most recent call last):
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\blob.py", line 4341, in _prep_and_do_download
+    self._do_download(
+    ~~~~~~~~~~~~~~~~~^
+        transport,
+        ^^^^^^^^^^
+    ...<8 lines>...
+        retry=retry,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\blob.py", line 1082, in _do_download
+    response = download.consume(transport, timeout=timeout)
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\_media\requests\download.py", line 246, in consume
+    return _request_helpers.wait_and_retry(retriable_request, self._retry_strategy)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\_media\requests\_request_helpers.py", line 107, in wait_and_retry
+    return func()
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\_media\requests\download.py", line 228, in retriable_request
+    self._process_response(result)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\_media\_download.py", line 227, in _process_response
+    _helpers.require_status_code(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        response, _ACCEPTABLE_STATUS_CODES, self._get_status_code
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\_media\_helpers.py", line 105, in require_status_code
+    raise InvalidResponse(
+    ...<5 lines>...
+    )
+google.cloud.storage.exceptions.InvalidResponse: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yashw\Hotel_Reservations_project1\src\data_ingestion.py", line 32, in download_csv_from_gcp
+    blob.download_to_filename(RAW_FILE_PATH)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\blob.py", line 1376, in download_to_filename
+    self._handle_filename_and_download(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        filename,
+        ^^^^^^^^^
+    ...<12 lines>...
+        retry=retry,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\blob.py", line 1256, in _handle_filename_and_download
+    self._prep_and_do_download(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        file_obj,
+        ^^^^^^^^^
+        *args,
+        ^^^^^^
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\blob.py", line 4354, in _prep_and_do_download
+    _raise_from_invalid_response(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\yashw\Hotel_Reservations_project1\venv\Lib\site-packages\google\cloud\storage\blob.py", line 4826, in _raise_from_invalid_response
+    raise exceptions.from_http_status(response.status_code, message, response=response)
+google.api_core.exceptions.Forbidden: 403 GET https://storage.googleapis.com/download/storage/v1/b/my_bucket9789/o/Hotel_Reservations.csv?alt=media: The billing account for the owning project is disabled in state closed: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
+2025-05-28 08:21:05,044 - ERROR - CustomException : Error in C:\Users\yashw\Hotel_Reservations_project1\src\data_ingestion.py , line 32 : Failed to downlaod csv file 
+2025-05-28 08:21:05,045 - INFO - Data ingestion completed
+2025-05-28 08:21:05,046 - INFO - Succesfully read the YAML file
+2025-05-28 08:21:05,046 - INFO - Loading data from RAW directory
+2025-05-28 08:21:05,046 - INFO - Loading data
+2025-05-28 08:21:05,137 - INFO - Loading data
+2025-05-28 08:21:05,156 - INFO - Starting our Data Processing step
+2025-05-28 08:21:05,156 - INFO - Dropping the columns
+2025-05-28 08:21:05,202 - INFO - Applying Label Encoding
+2025-05-28 08:21:05,223 - INFO - Label Mappings are : 
+2025-05-28 08:21:05,223 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2025-05-28 08:21:05,223 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:21:05,223 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2025-05-28 08:21:05,223 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2025-05-28 08:21:05,224 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:21:05,224 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2025-05-28 08:21:05,224 - INFO - Doing Skewness HAndling
+2025-05-28 08:21:05,231 - INFO - Starting our Data Processing step
+2025-05-28 08:21:05,231 - INFO - Dropping the columns
+2025-05-28 08:21:05,238 - INFO - Applying Label Encoding
+2025-05-28 08:21:05,243 - INFO - Label Mappings are : 
+2025-05-28 08:21:05,243 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2025-05-28 08:21:05,243 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:21:05,243 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2025-05-28 08:21:05,243 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2025-05-28 08:21:05,243 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:21:05,243 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2025-05-28 08:21:05,243 - INFO - Doing Skewness HAndling
+2025-05-28 08:21:05,246 - INFO - Handling Imbalanced Data
+2025-05-28 08:21:08,568 - INFO - Data balanced sucesffuly
+2025-05-28 08:21:08,570 - INFO - Handling Imbalanced Data
+2025-05-28 08:21:08,592 - INFO - Data balanced sucesffuly
+2025-05-28 08:21:08,593 - INFO - Starting our Feature selection step
+2025-05-28 08:21:11,717 - INFO - Features selected : ['lead_time' 'no_of_special_requests' 'avg_price_per_room' 'arrival_month'
+ 'arrival_date' 'market_segment_type' 'no_of_week_nights'
+ 'no_of_weekend_nights' 'room_type_reserved' 'type_of_meal_plan']
+2025-05-28 08:21:11,719 - INFO - Feature slection completed sucesfully
+2025-05-28 08:21:11,731 - INFO - Saving our data in processed folder
+2025-05-28 08:21:11,847 - INFO - Data saved sucesfuly to artifacts/processed\processed_train.csv
+2025-05-28 08:21:11,848 - INFO - Saving our data in processed folder
+2025-05-28 08:21:11,875 - INFO - Data saved sucesfuly to artifacts/processed\processed_test.csv
+2025-05-28 08:21:11,875 - INFO - Data processing completed sucesfully
+2025-05-28 08:21:13,500 - INFO - Starting model training pipeline
+2025-05-28 08:21:13,500 - INFO - starting MLFlow run
+2025-05-28 08:21:13,500 - INFO - logging the training and testing dataset to mlflow
+2025-05-28 08:21:13,509 - INFO - Loading data from artifacts/processed\processed_train.csv
+2025-05-28 08:21:13,509 - INFO - Loading data
+2025-05-28 08:21:13,540 - INFO - Loading data from artifacts/processed\processed_test.csv
+2025-05-28 08:21:13,540 - INFO - Loading data
+2025-05-28 08:21:13,552 - INFO - Data splitted sucefully for Model Training
+2025-05-28 08:21:13,552 - INFO - Intializing our model
+2025-05-28 08:21:13,552 - INFO - Starting our Hyperparamter tuning
+2025-05-28 08:21:13,552 - INFO - Starting our Hyperparamter tuning
+2025-05-28 08:21:50,470 - INFO - Hyperparamter tuning completed
+2025-05-28 08:21:50,503 - INFO - Best paramters are : {'boosting_type': 'goss', 'learning_rate': np.float64(0.1693085973720466), 'max_depth': 9, 'n_estimators': 206, 'num_leaves': 91}
+2025-05-28 08:21:50,509 - INFO - Evaluating our model
+2025-05-28 08:21:51,666 - INFO - Accuracy Score : 0.8727705112960761
+2025-05-28 08:21:51,666 - INFO - Precision Score : 0.8612583544595529
+2025-05-28 08:21:51,666 - INFO - Recall Score : 0.8887039239001189
+2025-05-28 08:21:51,666 - INFO - F1 Score : 0.8747659176029963
+2025-05-28 08:21:51,666 - INFO - Evaluation metrics: {'accuracy': 0.8727705112960761, 'precison': 0.8612583544595529, 'recall': 0.8887039239001189, 'f1': 0.8747659176029963}
+2025-05-28 08:21:51,701 - INFO - saving the model
+2025-05-28 08:21:52,027 - INFO - Model saved to artifacts/models/lgbm_model.pkl
+2025-05-28 08:21:52,027 - INFO - Logging model to MLFlow
+2025-05-28 08:21:52,286 - INFO - Model training pipeline completed successfully
+2025-05-28 08:33:20,372 - INFO - Succesfully read the YAML file
+2025-05-28 08:33:20,374 - INFO - Data Ingestion started with hotel_reservation_mlops_project1 and file is  Hotel_Reservations.csv
+2025-05-28 08:33:20,374 - INFO - Starting data ingestion process
+2025-05-28 08:33:22,481 - INFO - CSV file is sucesfully downloaded to artifacts/raw\raw.csv
+2025-05-28 08:33:22,481 - INFO - Starting the splitting process
+2025-05-28 08:33:22,733 - INFO - Train data saved to artifacts/raw\train.csv
+2025-05-28 08:33:22,733 - INFO - Test data saved to artifacts/raw\test.csv
+2025-05-28 08:33:22,739 - INFO - Data ingestion completed sucesfully
+2025-05-28 08:33:22,739 - INFO - Data ingestion completed
+2025-05-28 08:33:22,741 - INFO - Succesfully read the YAML file
+2025-05-28 08:33:22,741 - INFO - Loading data from RAW directory
+2025-05-28 08:33:22,741 - INFO - Loading data
+2025-05-28 08:33:22,802 - INFO - Loading data
+2025-05-28 08:33:22,818 - INFO - Starting our Data Processing step
+2025-05-28 08:33:22,818 - INFO - Dropping the columns
+2025-05-28 08:33:22,849 - INFO - Applying Label Encoding
+2025-05-28 08:33:22,865 - INFO - Label Mappings are : 
+2025-05-28 08:33:22,865 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2025-05-28 08:33:22,865 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:33:22,865 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2025-05-28 08:33:22,865 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2025-05-28 08:33:22,865 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:33:22,865 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2025-05-28 08:33:22,865 - INFO - Doing Skewness HAndling
+2025-05-28 08:33:22,870 - INFO - Starting our Data Processing step
+2025-05-28 08:33:22,871 - INFO - Dropping the columns
+2025-05-28 08:33:22,875 - INFO - Applying Label Encoding
+2025-05-28 08:33:22,880 - INFO - Label Mappings are : 
+2025-05-28 08:33:22,881 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2025-05-28 08:33:22,881 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:33:22,881 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2025-05-28 08:33:22,881 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2025-05-28 08:33:22,881 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2025-05-28 08:33:22,881 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2025-05-28 08:33:22,881 - INFO - Doing Skewness HAndling
+2025-05-28 08:33:22,883 - INFO - Handling Imbalanced Data
+2025-05-28 08:33:25,919 - INFO - Data balanced sucesffuly
+2025-05-28 08:33:25,921 - INFO - Handling Imbalanced Data
+2025-05-28 08:33:25,943 - INFO - Data balanced sucesffuly
+2025-05-28 08:33:25,944 - INFO - Starting our Feature selection step
+2025-05-28 08:33:28,813 - INFO - Features selected : ['lead_time' 'no_of_special_requests' 'avg_price_per_room' 'arrival_month'
+ 'arrival_date' 'market_segment_type' 'no_of_week_nights'
+ 'no_of_weekend_nights' 'room_type_reserved' 'type_of_meal_plan']
+2025-05-28 08:33:28,815 - INFO - Feature slection completed sucesfully
+2025-05-28 08:33:28,826 - INFO - Saving our data in processed folder
+2025-05-28 08:33:28,918 - INFO - Data saved sucesfuly to artifacts/processed\processed_train.csv
+2025-05-28 08:33:28,919 - INFO - Saving our data in processed folder
+2025-05-28 08:33:28,939 - INFO - Data saved sucesfuly to artifacts/processed\processed_test.csv
+2025-05-28 08:33:28,939 - INFO - Data processing completed sucesfully
+2025-05-28 08:33:30,020 - INFO - Starting model training pipeline
+2025-05-28 08:33:30,020 - INFO - starting MLFlow run
+2025-05-28 08:33:30,020 - INFO - logging the training and testing dataset to mlflow
+2025-05-28 08:33:30,028 - INFO - Loading data from artifacts/processed\processed_train.csv
+2025-05-28 08:33:30,028 - INFO - Loading data
+2025-05-28 08:33:30,050 - INFO - Loading data from artifacts/processed\processed_test.csv
+2025-05-28 08:33:30,051 - INFO - Loading data
+2025-05-28 08:33:30,060 - INFO - Data splitted sucefully for Model Training
+2025-05-28 08:33:30,060 - INFO - Intializing our model
+2025-05-28 08:33:30,060 - INFO - Starting our Hyperparamter tuning
+2025-05-28 08:33:30,060 - INFO - Starting our Hyperparamter tuning
+2025-05-28 08:33:47,598 - INFO - Hyperparamter tuning completed
+2025-05-28 08:33:47,607 - INFO - Best paramters are : {'boosting_type': 'goss', 'learning_rate': np.float64(0.1693085973720466), 'max_depth': 9, 'n_estimators': 206, 'num_leaves': 91}
+2025-05-28 08:33:47,608 - INFO - Evaluating our model
+2025-05-28 08:33:47,707 - INFO - Accuracy Score : 0.8727705112960761
+2025-05-28 08:33:47,707 - INFO - Precision Score : 0.8612583544595529
+2025-05-28 08:33:47,707 - INFO - Recall Score : 0.8887039239001189
+2025-05-28 08:33:47,707 - INFO - F1 Score : 0.8747659176029963
+2025-05-28 08:33:47,707 - INFO - Evaluation metrics: {'accuracy': 0.8727705112960761, 'precison': 0.8612583544595529, 'recall': 0.8887039239001189, 'f1': 0.8747659176029963}
+2025-05-28 08:33:47,709 - INFO - saving the model
+2025-05-28 08:33:47,791 - INFO - Model saved to artifacts/models/lgbm_model.pkl
+2025-05-28 08:33:47,791 - INFO - Logging model to MLFlow
+2025-05-28 08:33:47,847 - INFO - Model training pipeline completed successfully

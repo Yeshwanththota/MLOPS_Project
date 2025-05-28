@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/yashw/Hotel_Reservations_project1/mlruns/0/d8ec03d30da343d286008c751bb66d8d/artifacts
+end_time: 1748417627848
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d8ec03d30da343d286008c751bb66d8d
+run_name: bright-bee-673
+run_uuid: d8ec03d30da343d286008c751bb66d8d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748417610000
+status: 3
+tags: []
+user_id: yashw
