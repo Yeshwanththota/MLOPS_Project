@@ -1,21 +1,22 @@
-pipeline{
+    pipeline{
     agent any
-    environment{
+
+    environment {
         VENV_DIR = 'venv'
-        GCP_PROJECT = 'lofty-voyage-461011-f1'
-        GCLOUD_PATH = '/var/jenkins_home/google-cloud-sdk/bin'
+        GCP_PROJECT = "lofty-voyage-461011-f1"
+        GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
     }
+
     stages{
-        stage('cloning github repo to jenkins'){
+        stage('Cloning Github repo to Jenkins'){
             steps{
                 script{
-                    echo 'Cloning the GitHub repository to Jenkins workspace'
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_token', url: 'https://github.com/Yeshwanththota/MLOPS_Project1.git']])
-
-
+                    echo 'Cloning Github repo to Jenkins............'
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/data-guru0/MLOPS-COURSE-PROJECT-1.git']])
                 }
             }
         }
+
         stage('Setting up our Virtual Environment and Installing dependancies'){
             steps{
                 script{
@@ -29,9 +30,10 @@ pipeline{
                 }
             }
         }
+
         stage('Building and Pushing Docker Image to GCR'){
             steps{
-                withCredentials([file(credentialsId: 'GCP-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
+                withCredentials([file(credentialsId: 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
                     script{
                         echo 'Building and Pushing Docker Image to GCR.............'
                         sh '''
@@ -52,5 +54,33 @@ pipeline{
                     }
                 }
             }
+        }
+
+
+        // stage('Deploy to Google Cloud Run'){
+        //     steps{
+        //         withCredentials([file(credentialsId: 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
+        //             script{
+        //                 echo 'Deploy to Google Cloud Run.............'
+        //                 sh '''
+        //                 export PATH=$PATH:${GCLOUD_PATH}
+
+
+        //                 gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+
+        //                 gcloud config set project ${GCP_PROJECT}
+
+        //                 gcloud run deploy ml-project \
+        //                     --image=gcr.io/${GCP_PROJECT}/ml-project:latest \
+        //                     --platform=managed \
+        //                     --region=us-central1 \
+        //                     --allow-unauthenticated
+                            
+        //                 '''
+        //             }
+        //         }
+        //     }
+        // }
+        
     }
 }
