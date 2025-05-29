@@ -1,0 +1,4 @@
+venv/
+mlruns/
+logs/
+MLOPS_project1.egg-info/
