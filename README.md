@@ -1,3 +1,1 @@
-MLOPS Project.
-
-Tools: Vscode, GCP, Cloud Run, Jenkins, Docker, MLflow, Github, Git
+Tech stack: Python, VScode, GCP, Cloud Run, Jenkins, Docker, MLflow, Github, Git, HTML,CSS
